@@ -12,3 +12,6 @@ gst-launch-1.0 -v \
     mpegtsmux name=mux ! hlssink location=/tmp/segment_%05d.ts playlist-location=/tmp/playlist.m3u8 target-duration=5
 
 
+nginx
+
+docker run --network my-custom-network --name nginx-rtmp-hls -p 1935:1935 -p 80:80 -p 8080:8080 nginx-rtmp-hls

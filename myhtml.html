@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Media Capture</title>
+</head>
+<body>
+  <h2>Media Capture</h2>
+  <video id="video" width="640" height="480" autoplay></video>
+  <audio id="audio" controls></audio>
+
+  <script>
+    const videoElement = document.getElementById("video");
+    const audioElement = document.getElementById("audio");
+
+    // Get media stream from user's device
+    async function startCapture() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+        videoElement.srcObject = stream;
+        audioElement.srcObject = stream;
+
+        const mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+
+        // Initialize WebSocket to send media chunks to the backend
+        const socket = new WebSocket("ws://localhost:3000/upload");
+        socket.onopen = () => {
+          console.log('WebSocket connection established.');
+        };
+
+        mediaRecorder.ondataavailable = (event) => {
+          const blob = event.data;
+          socket.send(blob); // Send each chunk of media to the backend
+        };
+
+        mediaRecorder.start(100); // Send data every 100ms
+      } catch (err) {
+        console.error("Error accessing media devices: ", err);
+      }
+    }
+
+    startCapture();
+  </script>
+</body>
+</html>

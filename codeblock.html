@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<!-- element.style {
+  max-width: 60%;
+  margin: 0 auto;
+  text-align: center;
+} -->
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Code Highlighting with Prism.js and Copy Button</title>
+  <!-- Prism.js CSS for styling -->
+  <link 
+    rel="stylesheet" 
+    href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" 
+  />
+  <style>
+
+    html {
+  margin: 0 auto;
+}
+
+@media (min-width: 768px) {
+  html {
+    max-width: 70%;
+  }
+}
+    .code-block {
+      position: relative;
+    }
+    .copy-button {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      padding: 5px 10px;
+      font-size: 12px;
+      color: #fff;
+      background: #007bff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 10;
+    }
+    .copy-button:active {
+      background: #0056b3;
+    }
+    pre[class*=language-] {
+      padding: 1em 1em 0em 1em ! important;
+      margin: .5em 0;
+    }
+  </style>
+</head>
+<body>
+  <h1>Code Block Highlighting with Copy Button</h1>
+  <p>This is an example of client-side syntax highlighting using Prism.js with a copy button for each code block.</p>
+
+  <!-- Example: JavaScript Code Block -->
+  <h2>JavaScript Example</h2>
+  <div class="code-block">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
+    <pre class="language-javascript">
+      <code>
+function greet(name) {
+  return `Hello, ${'${name}'}`;
+}
+
+console.log(greet("World"));
+      </code>
+    </pre>
+  </div>
+
+  <!-- Example: Python Code Block -->
+  <h2>Python Example</h2>
+  <div class="code-block">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
+    <pre class="language-python">
+      <code>
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("World"))
+      </code>
+    </pre>
+  </div>
+
+  <!-- Example: HTML Code Block -->
+  <h2>HTML Example</h2>
+  <div class="code-block">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
+    <pre class="language-html">
+      <code>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Sample&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Hello, World!&lt;/h1&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+      </code>
+    </pre>
+  </div>
+
+
+  <h2>HTML Example</h2>
+  <div class="code-block">
+    <button class="copy-button" onclick="copyCode(this)">Copy</button>
+    <pre class="language-bash">
+      <code>
+(venv) itzmeontv@pashas-MacBook-Pro video-ops-tutorials % tree
+.
+├── backend.py
+├── codeblock.html
+├── myhtml.html
+├── myhtml2.html
+├── output.mp4
+└── output.webm
+
+1 directory, 6 files
+
+      </code>
+    </pre>
+  </div>
+
+  <!-- Prism.js Core Library -->
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js" 
+    defer>
+  </script>
+  <!-- Language Plugins -->
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js" 
+    defer>
+  </script>
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js" 
+    defer>
+  </script>
+  <script 
+    src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-html.min.js" 
+    defer>
+  </script>
+  <!-- JavaScript for Copy Button -->
+  <script>
+    function copyCode(button) {
+      // Find the associated code block
+      const codeBlock = button.nextElementSibling.querySelector('code');
+      const textToCopy = codeBlock.innerText;
+
+      // Copy the code to the clipboard
+      navigator.clipboard.writeText(textToCopy).then(() => {
+        // Temporarily change the button text to indicate success
+        button.textContent = 'Copied!';
+        setTimeout(() => (button.textContent = 'Copy'), 2000);
+      }).catch(err => {
+        console.error('Failed to copy code:', err);
+      });
+    }
+  </script>
+</body>
+</html>
+
+
+
+
+

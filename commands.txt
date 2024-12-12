@@ -1,0 +1,14 @@
+gst-launch-1.0 -v filesrc location=output.mp4 ! decodebin ! x264enc speed-preset=ultrafast tune=zerolatency ! mpegtsmux ! hlssink location=/tmp/segment_%05d.ts playlist-location=/tmp/playlist.m3u8 target-duration=1
+
+from camera
+
+gst-launch-1.0 -v autovideosrc ! videoconvert ! x264enc speed-preset=ultrafast tune=zerolatency ! mpegtsmux ! hlssink location=/tmp/segment_%05d.ts playlist-location=/tmp/playlist.m3u8 target-duration=5
+
+including audio
+
+gst-launch-1.0 -v \
+    autovideosrc ! videoconvert ! x264enc speed-preset=ultrafast tune=zerolatency ! h264parse ! mux. \
+    autoaudiosrc ! audioconvert ! avenc_aac ! aacparse ! mux. \
+    mpegtsmux name=mux ! hlssink location=/tmp/segment_%05d.ts playlist-location=/tmp/playlist.m3u8 target-duration=5
+
+
